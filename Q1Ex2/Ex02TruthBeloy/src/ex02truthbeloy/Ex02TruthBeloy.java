@@ -15,106 +15,96 @@ public class Ex02TruthBeloy {
     /**
      * @param args the command line arguments
      */
-    
-    static int uppL;
-    static int lowL;
-    static int guesses;
-    
-    // how do i do this change settings part,,,,,,,, sir tarcy if ur reading this pls hel,pekfosdfsdifnvsnfdnfsdifsdibfsdhfbhsdbfsdgvf
-    
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner Start= new Scanner(System.in);
         
-        //boolean overrr = false;
-        //while(overrr == false); {
+        String start1 = "Start game";
+        String start2 = "Change settings";
+        String start3 = "End application";
+        int range = 10;
+        int min = 1;
+        int atts = 3;
         
-            String start1 = "Start game";
-            String start2 = "Change settings";
-            String start3 = "End application";
+        while(true) {
             System.out.printf("Welcome to Higher or Lower! What will you do?"
-                    + "%n-%s%n-%s%n-%s%n%n", start1, start2, start3);
-            String startInput = sc.nextLine();
-
-            /* if(startInput.equalsIgnoreCase(start2)) {
-                System.out.print("What is the upper limit of the random number?  ");
-                int uppL = sc.nextInt();
-                System.out.print("What is the lower limit of the random number?  ");
-                int lowL = sc.nextInt();
-                System.out.print("How many guesses are allowed?  ");
-                int guess = sc.nextInt();
-                
-                startInput = start1;
-            } */
-
+                + "%n-%s%n-%s%n-%s%n%n", start1, start2, start3);
+            String startInput = Start.nextLine();
+            
             if(startInput.equalsIgnoreCase(start1)) {
-                boolean over = false;
+                Scanner att = new Scanner(System.in);
+                int random = (int) Math.floor(Math.random()*range) + min;
 
-                while(over == false) {
-                    int range = uppL; //def 10
-                    int min = lowL; //def 1
-                    int atts = guesses; //def 3
-                    int random = (int) Math.floor(Math.random()*range) + min;
+                System.out.printf("%nGuess the correct number from %d-%d! You have %d attemps left. What is your guess?%n", min, range, atts);
+                int guess = att.nextInt();
+                boolean done = false;
 
-                    System.out.printf("%nGuess the correct number from %d-%d! You have %d attemps left. What is your guess?%n", min, range, atts);
-                    int guess = sc.nextInt();
-                    boolean done = false;
+                while(done == false) {
+                    atts--;
 
-                    while(done == false) {
-                        atts--;
-
-                        if(guess > random) {
-                            if(atts > 1) {
-                                System.out.printf("%nGuess lower! You have %d attempts left. What is your guess?%n", atts);
-                                guess = sc.nextInt();
-                            }
-                            else if(atts == 1) {
-                                System.out.printf("%nGuess lower! You have %d attempt left. What is your guess?%n", atts);
-                                guess = sc.nextInt();
-                            }
-                            else {
-                                System.out.printf("You have run out of attempts!%nPlay again? (y/n)  ");
-                                done = true;
-                            }
+                    if(guess > random) {
+                        if(atts > 1) {
+                            System.out.printf("%nGuess lower! You have %d attempts left. What is your guess?%n", atts);
+                            guess = att.nextInt();
                         }
-                        else if(guess < random) {
-                            if(atts > 1) {
-                                System.out.printf("%nGuess higher! You have %d attempts left. What is your guess?%n", atts);
-                                guess = sc.nextInt();
-                            }
-                            else if(atts == 1) {
-                                System.out.printf("%nGuess higher! You have %d attempt left. What is your guess?%n", atts);
-                                guess = sc.nextInt();
-                            }
-                            else {
-                                System.out.printf("You have run out of attempts!%nPlay again? (y/n)  ");
-                                done = true;
-                            }
+                        else if(atts == 1) {
+                            System.out.printf("%nGuess lower! You have %d attempt left. What is your guess?%n", atts);
+                            guess = att.nextInt();
                         }
-                        else if(guess == random) {
-                            System.out.printf("%nYou got it!%nPlay again? (y/n)%n");
+                        else {
+                            System.out.printf("You have run out of attempts!%nPlay again? (y/n)  ");
                             done = true;
                         }
-
-                        String endChoice = sc.nextLine();
-
-                        if(endChoice.equalsIgnoreCase("n")) {
-                            //done = true;
-                            over = true;
-                            //overrr = true;
+                    }
+                    else if(guess < random) {
+                        if(atts > 1) {
+                            System.out.printf("%nGuess higher! You have %d attempts left. What is your guess?%n", atts);
+                            guess = att.nextInt();
                         }
-                        else if(endChoice.equalsIgnoreCase("y")) {
-                            //done = true;
-                            over = false;
-                            //overrr = false;
+                        else if(atts == 1) {
+                            System.out.printf("%nGuess higher! You have %d attempt left. What is your guess?%n", atts);
+                            guess = att.nextInt();
+                        }
+                        else {
+                            System.out.printf("You have run out of attempts!%nPlay again? (y/n)  ");
+                            done = true;
                         }
                     }
+                    else if(guess == random) {
+                        System.out.printf("%nYou got it!%nPlay again? (y/n)%n");
+                        done = true;
+                    }
+                }
+                
+                String endChoice = att.nextLine();
+
+                if(endChoice.equalsIgnoreCase("n")) {
+                    break;
+                }
+                else if(endChoice.equalsIgnoreCase("y")) {
+                    continue;
                 }
             }
+            
+            if(startInput.equalsIgnoreCase(start2)) {
+                System.out.println("What is the lower limit of the random number?:  ");
+                Scanner ll= new Scanner(System.in);
+                min = ll.nextInt();
+
+                System.out.println("What is the upper limit of the random number?:  ");
+                Scanner ul = new Scanner(System.in);
+                range = ul.nextInt();
+
+                System.out.println("How many guesses are allowed?:  ");
+                Scanner gl= new Scanner(System.in);
+                atts = gl.nextInt();
+            }
+            
             if(startInput.equalsIgnoreCase(start3)) {
                 System.out.print("\nThank you for playing!");
-            }
+                break;
+            }   
         }
     }
-//}
+}
     
 
